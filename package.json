@@ -1,7 +1,7 @@
 {
   "name": "blear.utils.scope-css",
-  "version": "1.0.0",
-  "description": "CSS 范围化，常用于组件，防止组件之间的样式互相干扰",
+  "version": "1.0.1",
+  "description": "CSS 作用域，常用于组件，防止组件之间的样式互相干扰",
   "scripts": {
     "live": "browser-sync start --config bs-config.js",
     "test": "node ./node_modules/.bin/karma start karma.conf.js --single-run",
