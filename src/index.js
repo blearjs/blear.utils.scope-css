@@ -8,12 +8,21 @@
 
 
 
-var reCSS = /([^\r\n,\{}]+)(,(?=[^}]*\{)|\s*\{)/g;
-var reInside = /^\s*(@media|@keyframes|to|from|@font-face|[\d.]%)/;
+var seperatorRE = /([^\r\n,\{}]+)(,(?=[^}]*\{)|\s*\{)/g;
+var insideRE = /^\s*(@media|@keyframes|to|from|@font-face|[\d.]%)/;
+// @charset "UTF-8";
+var charsetRE = /@charset\s+(["'])(.*?)\1;/i;
 
 module.exports = function (css, scope) {
-    return css.replace(reCSS, function (g0, g1, g2) {
-        if (g1.match(reInside)) {
+    var charset = '';
+
+    css = css.replace(charsetRE, function (source, quote, char) {
+        charset = '@charset ' + quote + char + quote + ';';
+        return '';
+    });
+
+    return charset + css.replace(seperatorRE, function (g0, g1, g2) {
+        if (g1.match(insideRE)) {
             return g1 + g2;
         }
 

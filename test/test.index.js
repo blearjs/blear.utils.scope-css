@@ -10,6 +10,7 @@
 var scopeCSS = require('../src/index.js');
 var style1 = require('./style1.css');
 var style2 = require('./style2.css');
+var style3 = require('./style3.css');
 
 describe('测试文件', function () {
     it('base', function () {
@@ -24,8 +25,7 @@ describe('测试文件', function () {
         expect(css2).toMatch(/^@media \(min-width: 769px\) \{$/m);
         expect(css2).toMatch(/^\s*?#demo \.d \{$/m);
     });
-    
-    
+
     it('compressed', function () {
         var css2 = scopeCSS(style2, '#demo');
 
@@ -37,5 +37,12 @@ describe('测试文件', function () {
         expect(css2).toMatch(/from\{/);
         expect(css2).toMatch(/@media\(min-width:769px\)\{/);
         expect(css2).toMatch(/#demo \.d\{/);
+    });
+
+    it('@charset', function () {
+        var css3 = scopeCSS(style3, '#demo');
+
+        console.log(css3);
+        expect(css3).toMatch(/#demo \.a\s+{/);
     });
 });
