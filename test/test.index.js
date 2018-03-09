@@ -11,6 +11,7 @@ var scopeCSS = require('../src/index.js');
 var style1 = require('./style1.css');
 var style2 = require('./style2.css');
 var style3 = require('./style3.css');
+var style4 = require('./style4.css');
 
 describe('测试文件', function () {
     it('base', function () {
@@ -44,5 +45,12 @@ describe('测试文件', function () {
 
         console.log(css3);
         expect(css3).toMatch(/#demo \.a\s+{/);
+    });
+
+    it('__self__', function () {
+        var css4 = scopeCSS(style4, '#demo');
+
+        console.log(css4);
+        expect(css4).toMatch(/#demo\s+{/);
     });
 });
