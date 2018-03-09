@@ -31,7 +31,7 @@ module.exports = function (css, scope) {
     css = css.replace(selfRE, function (source) {
         var id = gid();
         selfMap[id] = source;
-        return id;
+        return id + '{}';
     });
 
     css = charset + css.replace(seperatorRE, function (g0, g1, g2) {
@@ -46,7 +46,7 @@ module.exports = function (css, scope) {
 
     // 恢复 __self__
     object.each(selfMap, function (key, val) {
-        css = css.replace(key, val.replace(selfRE, function (origin, content) {
+        css = css.replace(scope + ' ' + key + '{}', val.replace(selfRE, function (origin, content) {
             return scope + content;
         }));
     });
