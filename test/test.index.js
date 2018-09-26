@@ -7,7 +7,7 @@
 
 'use strict';
 
-var scopeCSS = require('../src/index.js');
+var scopeCSS = require('../src/index-old.js');
 var style1 = require('./style1.css');
 var style2 = require('./style2.css');
 var style3 = require('./style3.css');
