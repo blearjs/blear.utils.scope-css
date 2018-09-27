@@ -1,6 +1,6 @@
 {
   "name": "blear.utils.scope-css",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "CSS 作用域，常用于组件，防止组件之间的样式互相干扰",
   "scripts": {
     "live": "browser-sync start --config bs-config.js",
