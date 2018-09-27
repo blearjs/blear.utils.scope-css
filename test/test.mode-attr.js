@@ -9,7 +9,7 @@
 
 var scope = require('../src/index');
 
-describe('attr scope type', function () {
+describe('attr scope mode', function () {
 
     it('base', function () {
         var cssText1 = 'a{width:1px;}';
@@ -69,8 +69,8 @@ describe('attr scope type', function () {
             scopeSelector: '[x]'
         });
 
-        expect(cssText2).toEqual(
-            '@media (max-width: 100px){a[x]{width: 1px;}}'
+        expect(cssText2).toMatch(
+            /^@media (\(all and \))?\(max-width: 100px\){a\[x]{width: 1px;}}$/
         );
     });
 
@@ -83,7 +83,7 @@ describe('attr scope type', function () {
         });
 
         expect(cssText2.replace(/\n/g, '').replace(/\s+/g, ' ')).toMatch(
-            /^@(.*?)keyframes y {\s*?0% { width: 1px; }\s*?100% { width: 2px; }}$/
+            /^@(.*?)keyframes y {\s*?0% { width: 1px; }\s*?100% { width: 2px; }\s*?}$/
         );
     });
 
