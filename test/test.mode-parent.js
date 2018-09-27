@@ -91,5 +91,18 @@ describe('parent scope mode', function () {
         );
     });
 
+    it('__self__', function () {
+        var cssText1 = '__self__\n{width:1px}';
+        var cssText2 = scope(
+            cssText1,
+            '.x',
+            1
+        );
+
+        expect(cssText2).toEqual(
+            '.x{width: 1px;}'
+        );
+    });
+
 });
 

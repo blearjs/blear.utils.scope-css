@@ -38,7 +38,7 @@ module.exports = function (cssText, scopeSelector, mode) {
         }
     });
     destorySheet(sheet);
-    return scopedCssText;
+    return postSelf(scopedCssText);
 };
 
 
@@ -131,6 +131,15 @@ function processSheet(sheet, processor) {
     }
 
     return cssText;
+}
+
+/**
+ * 处理 self 关键字
+ * @param cssText
+ * @returns {string}
+ */
+function postSelf(cssText) {
+    return cssText.replace(/\s__self__\s*?{/ig, '{');
 }
 
 /**
