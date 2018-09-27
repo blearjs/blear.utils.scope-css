@@ -9,18 +9,18 @@
 
 var scope = require('../src/index');
 
-describe('attr scope type', function () {
+describe('parent scope type', function () {
 
     it('base', function () {
         var cssText1 = 'a{width:1px;}';
         var cssText2 = scope({
             cssText: cssText1,
-            type: 1,
-            scopeSelector: '[x]'
+            mode: 2,
+            scopeSelector: '.x'
         });
 
         expect(cssText2).toEqual(
-            'a[x]{width: 1px;}'
+            '.x a{width: 1px;}'
         );
     });
 
@@ -28,12 +28,12 @@ describe('attr scope type', function () {
         var cssText1 = 'a:hover{width:1px;}';
         var cssText2 = scope({
             cssText: cssText1,
-            type: 1,
-            scopeSelector: '[x]'
+            mode: 2,
+            scopeSelector: '.x'
         });
 
         expect(cssText2).toEqual(
-            'a[x]:hover{width: 1px;}'
+            '.x a:hover{width: 1px;}'
         );
     });
 
@@ -41,12 +41,12 @@ describe('attr scope type', function () {
         var cssText1 = 'a:after{width:1px;}';
         var cssText2 = scope({
             cssText: cssText1,
-            type: 1,
-            scopeSelector: '[x]'
+            mode: 2,
+            scopeSelector: '.x'
         });
 
         expect(cssText2).toEqual(
-            'a[x]::after{width: 1px;}'
+            '.x a::after{width: 1px;}'
         );
     });
 
@@ -54,8 +54,8 @@ describe('attr scope type', function () {
         var cssText1 = '@charset "utf-8";';
         var cssText2 = scope({
             cssText: cssText1,
-            type: 1,
-            scopeSelector: '[x]'
+            mode: 2,
+            scopeSelector: '.x'
         });
 
         expect(cssText2).toEqual('');
@@ -65,12 +65,12 @@ describe('attr scope type', function () {
         var cssText1 = '@media all and (max-width: 100px){a{width:1px;}}';
         var cssText2 = scope({
             cssText: cssText1,
-            type: 1,
-            scopeSelector: '[x]'
+            mode: 2,
+            scopeSelector: '.x'
         });
 
         expect(cssText2).toEqual(
-            '@media (max-width: 100px){a[x]{width: 1px;}}'
+            '@media (max-width: 100px){.x a{width: 1px;}}'
         );
     });
 
@@ -78,8 +78,8 @@ describe('attr scope type', function () {
         var cssText1 = '@keyframes y{from{width:1px;}to{width:2px;}}';
         var cssText2 = scope({
             cssText: cssText1,
-            type: 1,
-            scopeSelector: '[x]'
+            mode: 2,
+            scopeSelector: '.x'
         });
 
         expect(cssText2.replace(/\n/g, '')).toEqual(
@@ -88,3 +88,4 @@ describe('attr scope type', function () {
     });
 
 });
+

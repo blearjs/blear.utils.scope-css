@@ -17,12 +17,12 @@ var defaults = {
     cssText: '',
 
     /**
-     * scope 类型
+     * scope 模式
      * 1 = 属性【默认】
      * 2 = 父级
      * @type number
      */
-    type: 1,
+    mode: 1,
 
     /**
      * 作用域选择器
@@ -35,7 +35,7 @@ var ifEl = null;
  * css 作用域处理
  * @param options
  * @param options.cssText
- * @param [options.type=1]
+ * @param [options.mode=1]
  * @param options.scopeSelector
  * @returns {string}
  */
@@ -50,7 +50,7 @@ module.exports = function (options) {
     var sheet = initStyleSheet(originCssText);
     var scopeSelector = options.scopeSelector || '';
     var scopedCssText = processSheet(sheet, function (selector) {
-        switch (options.type) {
+        switch (options.mode) {
             case 1:
             default:
                 return selector.replace(/^(.*?)(:+[^:]+)?$/, '$1' + scopeSelector + '$2');
