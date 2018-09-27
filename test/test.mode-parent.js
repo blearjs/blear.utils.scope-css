@@ -82,6 +82,10 @@ describe('parent scope mode', function () {
             scopeSelector: '.x'
         });
 
+        if (cssText2 === '') {
+            return console.log('this browser does not support `@keyframes`');
+        }
+
         expect(cssText2.replace(/\n/g, '').replace(/\s+/g, ' ')).toMatch(
             /^@(.*?)keyframes y {\s*?0% { width: 1px; }\s*?100% { width: 2px; }\s*?}$/
         );

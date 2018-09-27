@@ -75,12 +75,16 @@ describe('attr scope mode', function () {
     });
 
     it('@keyframes', function () {
-        var cssText1 = '@keyframes y{from{width:1px;}to{width:2px;}}';
+        var cssText1 = '@keyframes y{from{width:1px;}to{width:2px;}}@keyframes y{from{width:1px;}to{width:2px;}}';
         var cssText2 = scope({
             cssText: cssText1,
             mode: 1,
             scopeSelector: '[x]'
         });
+
+        if (cssText2 === '') {
+            return console.log('this browser does not support `@keyframes`');
+        }
 
         expect(cssText2.replace(/\n/g, '').replace(/\s+/g, ' ')).toMatch(
             /^@(.*?)keyframes y {\s*?0% { width: 1px; }\s*?100% { width: 2px; }\s*?}$/
