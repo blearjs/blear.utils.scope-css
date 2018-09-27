@@ -129,7 +129,7 @@ function processSheet(sheet, processor) {
 
             // 4 = media
             case 4:
-                var con = rule.conditionText;
+                var con = rule.media.mediaText;
                 cssText += '@media ' + con + '{' + processSheet(rule, processor) + '}';
                 break;
 

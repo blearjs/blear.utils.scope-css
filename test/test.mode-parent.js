@@ -82,8 +82,8 @@ describe('parent scope type', function () {
             scopeSelector: '.x'
         });
 
-        expect(cssText2.replace(/\n/g, '')).toEqual(
-            '@keyframes y {   0% { width: 1px; }  100% { width: 2px; }}'
+        expect(cssText2.replace(/\n/g, '').replace(/\s+/g, ' ')).toMatch(
+            /^@(.*?)keyframes y {\s*?0% { width: 1px; }\s*?100% { width: 2px; }}$/
         );
     });
 
