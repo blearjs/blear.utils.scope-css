@@ -10,53 +10,31 @@
 var object = require('blear.utils.object');
 var modification = require('blear.core.modification');
 
-var defaults = {
-    /**
-     * 样式文本
-     */
-    cssText: '',
-
-    /**
-     * scope 模式
-     * 1 = 属性【默认】
-     * 2 = 父级
-     * @type number
-     */
-    mode: 1,
-
-    /**
-     * 作用域选择器
-     */
-    scopeSelector: ''
-};
 var ifEl = null;
 
 /**
  * css 作用域处理
- * @param options
- * @param options.cssText
- * @param [options.mode=1]
- * @param options.scopeSelector
+ * @param cssText {string} css 文本
+ * @param scopeSelector {string} 作用域选择器
+ * @param [mode=1] {number} 1=parent,2=attr
  * @returns {string}
  */
-module.exports = function (options) {
-    options = object.assign({}, defaults, options);
-    var originCssText = (options.cssText || '').trim();
+module.exports = function (cssText, scopeSelector, mode) {
+    var originCssText = (cssText || '').trim();
 
     if (!originCssText) {
         return originCssText;
     }
 
     var sheet = initStyleSheet(originCssText);
-    var scopeSelector = options.scopeSelector || '';
     var scopedCssText = processSheet(sheet, function (selector) {
-        switch (options.mode) {
+        switch (mode) {
             case 1:
             default:
-                return selector.replace(/^(.*?)(:+[^:]+)?$/, '$1' + scopeSelector + '$2');
+                return scopeSelector + ' ' + selector;
 
             case 2:
-                return scopeSelector + ' ' + selector;
+                return selector.replace(/^(.*?)(:+[^:]+)?$/, '$1' + scopeSelector + '$2');
         }
     });
     destorySheet(sheet);
