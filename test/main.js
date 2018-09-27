@@ -26,7 +26,6 @@
             p.style.color = '#158d1a';
             p.style.padding = '2px';
             p.style.margin = '0px';
-            p.style.fontSize = '12px';
             p.innerHTML = log;
             document.body.appendChild(p);
             oldConsole.log(log);
@@ -38,7 +37,6 @@
             p.style.color = '#fff';
             p.style.padding = '2px';
             p.style.margin = '0px';
-            p.style.fontSize = '12px';
             document.body.appendChild(p);
             oldConsole.error(error);
         }
