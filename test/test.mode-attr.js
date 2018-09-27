@@ -70,7 +70,7 @@ describe('attr scope mode', function () {
         });
 
         expect(cssText2).toMatch(
-            /^@media (\(all and \))?\(max-width: 100px\){a\[x]{width: 1px;}}$/
+            /^@media (all and )?\(max-width:\s*?100px\){a\[x]{width: 1px;}}$/
         );
     });
 
