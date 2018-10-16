@@ -13,7 +13,7 @@
     "node": ">=1.0.0",
     "iojs": ">=1.0.0"
   },
-  "main": "src/index-old.js",
+  "main": "src/index.js",
   "keywords": [
     "blear",
     "utils",
