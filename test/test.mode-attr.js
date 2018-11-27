@@ -91,4 +91,24 @@ describe('attr scope mode', function () {
         );
     });
 
+    it('>>>', function () {
+        var cssText1 = 'a   >>>   b{display:block}';
+        var cssText2 = scope(
+            cssText1,
+            '[x]',
+            2
+        );
+        expect(cssText2).toMatch(/^a\[x\] b/);
+    });
+
+    it('/deep/', function () {
+        var cssText1 = 'a   /deep/   b{display:block}';
+        var cssText2 = scope(
+            cssText1,
+            '[x]',
+            2
+        );
+        expect(cssText2).toMatch(/^a\[x\] b/);
+    });
+
 });

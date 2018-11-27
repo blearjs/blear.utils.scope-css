@@ -21,20 +21,29 @@ var ifEl = null;
  */
 module.exports = function (cssText, scopeSelector, mode) {
     var originCssText = (cssText || '').trim();
+    var deepRE = /\s+\/deep\/\s+/;
+    var normalRE = /^(.*?)(:+[^:]+)?$/;
 
     if (!originCssText) {
         return originCssText;
     }
 
+    // 兼容 deep selector
+    // @link https://vue-loader-v14.vuejs.org/zh-cn/features/scoped-css.html
+    // 有些像 Sass 之类的预处理器无法正确解析 >>>。这种情况下你可以使用 /deep/ 操作符取而代之
+    // ——这是一个 >>> 的别名，同样可以正常工作。
+    originCssText = originCssText.replace(/\s+>>>\s+/, ' /deep/ ');
     var sheet = initStyleSheet(originCssText);
     var scopedCssText = processSheet(sheet, function (selector) {
         switch (mode) {
             case 1:
             default:
-                return scopeSelector + ' ' + selector;
+                return scopeSelector + ' ' + selector.replace(deepRE, ' ');
 
             case 2:
-                return selector.replace(/^(.*?)(:+[^:]+)?$/, '$1' + scopeSelector + '$2');
+                return deepRE.test(selector) ?
+                    selector.replace(deepRE, scopeSelector + ' ') :
+                    selector.replace(normalRE, '$1' + scopeSelector + '$2');
         }
     });
     destorySheet(sheet);
