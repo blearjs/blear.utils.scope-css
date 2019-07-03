@@ -35,16 +35,18 @@ module.exports = function (cssText, scopeSelector, mode) {
     originCssText = originCssText.replace(/\s+>>>\s+/, ' /deep/ ');
     var sheet = initStyleSheet(originCssText);
     var scopedCssText = processSheet(sheet, function (selector) {
-        switch (mode) {
-            case 1:
-            default:
-                return scopeSelector + ' ' + selector.replace(deepRE, ' ');
+        return selector.split(/,/).map(function (selector) {
+            switch (mode) {
+                case 1:
+                default:
+                    return scopeSelector + ' ' + selector.replace(deepRE, ' ');
 
-            case 2:
-                return deepRE.test(selector) ?
-                    selector.replace(deepRE, scopeSelector + ' ') :
-                    selector.replace(normalRE, '$1' + scopeSelector + '$2');
-        }
+                case 2:
+                    return deepRE.test(selector) ?
+                        selector.replace(deepRE, scopeSelector + ' ') :
+                        selector.replace(normalRE, '$1' + scopeSelector + '$2');
+            }
+        }).join(',');
     });
     destorySheet(sheet);
     return postSelf(scopedCssText);

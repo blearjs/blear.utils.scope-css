@@ -50,6 +50,19 @@ describe('attr scope mode', function () {
         );
     });
 
+    it('pseudo twice', function () {
+        var cssText1 = 'a:hover,a::after{width:1px;}';
+        var cssText2 = scope(
+            cssText1,
+            '[x]',
+            2
+        );
+
+        expect(cssText2).toEqual(
+            'a[x]:hover, a[x]::after{width: 1px;}'
+        );
+    });
+
     it('@charset', function () {
         var cssText1 = '@charset "utf-8";';
         var cssText2 = scope(
